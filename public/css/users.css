@@ -1,0 +1,54 @@
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+}
+
+.buttons input, 
+.buttons a {
+  width: 140px;
+  height: 37px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.buttons input {
+  background-color: #6558C3;
+}
+
+.buttons a {
+  margin-left: 16px;
+  background-color:  #8A8A8A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.buttons a:hover {
+  opacity: 0.8;
+}
+
+.form-user form > section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 60px;
+  row-gap: 30px;
+}
+
+.field-item input[type="checkbox"] {
+  font-size: initial;
+  display: initial;
+  height: initial;
+  width: initial;
+  margin-right: 8px;
+}
+
+.field-item:nth-child(3) label {
+  display: initial;
+  width: initial;
+}

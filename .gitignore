@@ -1,0 +1,9 @@
+node_modules
+startdb.ps1
+stopdb.ps1
+yarn.lock
+data.js
+data.json
+public/images/*.png
+ssh-add.pub
+ssh-add
