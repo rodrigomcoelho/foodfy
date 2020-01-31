@@ -11,16 +11,16 @@
   {% call card.render('container', 'admin')%}
   <div class="form-user">
     <form action="/admin/users" method="post">
-      <div class="form-header">
+      <div class="form-header user-create">
         <h3>Criando Usuário</h3>
         <div class="buttons">
           <input type="submit" value="Salvar" class="button">
           <a href="/admin/users" class="button-gray">Cancelar</a>
         </div>
       </div>
-      <section>
+
         {% include './fields.njk' %}
-      </section>
+
     </form>
   </div>
   {% endcall %}

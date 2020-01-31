@@ -15,13 +15,13 @@
       <h3>Iniciar Sessão</h3>
 
       <label for="email">Email</label>
-      <input type="email" name="email">
+      <input type="email" name="email" value="{{ user.email }}">
 
       <label for="password">Nova Senha</label>
       <input type="password" name="password">
 
       <div class="login-options">
-        <a href="#">Perdeu a senha?</a>
+        <a href="/session/forgot">Perdeu a senha?</a>
         <input type="submit" value="Entrar" class="button">
       </div>
 

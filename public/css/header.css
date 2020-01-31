@@ -8,6 +8,14 @@ header.header .container {
 header.header.admin {
   background-color: #000;
   margin-bottom: 50px;
+  text-transform: uppercase;
+  font-family: Helvetica;
+  font-size: 15px;
+  color: #999999;
+}
+
+header.header.admin .selected {
+  font-weight: bold;
 }
 
 .header a.logo {
@@ -26,4 +34,10 @@ nav.menu ul {
 
 .menu ul li + li {
   margin-left: 30px;
+}
+
+.menu ul li#logout {
+  position: absolute;
+
+  right: 50px;
 }

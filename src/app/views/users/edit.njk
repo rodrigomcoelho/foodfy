@@ -10,7 +10,7 @@
 
   {% call card.render('container', 'admin')%}
 
-  <div class="form-header">
+  <div class="form-header edit">
     <h3>Editando Usuário</h3>
     <div class="forms">
       <form action="/admin/users?_method=DELETE" method="post">
@@ -19,7 +19,7 @@
       </form>
       <form action="/admin/users?_method=PUT" method="post">
         <input class="button" type="submit" value="Salvar">
-        {% include './fields.njk' %}
+          {% include './fields.njk' %}
       </form>
     </div>
   </div>

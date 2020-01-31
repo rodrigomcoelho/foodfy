@@ -15,4 +15,8 @@
     {% include '_parts/footer.njk' %}
   {% endif %}
 
+  {% if header == 'admin' %}
+      <script src="/js/script.js"></script>
+  {% endif %}
+
 {% endmacro %}

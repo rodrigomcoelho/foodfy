@@ -22,7 +22,7 @@ class UserController
     {
       const { name, email, isAdmin } = req.body;
 
-      const is_admin = isAdmin ? false : true;
+      const is_admin = isAdmin ? true : false;
 
       const reset_token = randomBytes(20).toString('hex');
 
@@ -52,12 +52,15 @@ class UserController
 
   async show(req, res)
   {
-    return res.send('Controler.show não implementado ainda');
+    const user = req.user;
+
+    return res.render('users/edit', { user });
   }
 
   async edit(req, res)
   {
-    return res.send('Controler.edit não implementado ainda');
+    console.log(req.user);
+    return res.render('users/edit', { user: req.user});
   }
 
   async put(req, res)

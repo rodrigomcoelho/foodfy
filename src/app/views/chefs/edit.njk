@@ -14,8 +14,8 @@
         <h3>Editando Chef</h3>
         <div class="forms">
             <form action="/admin/chefs?_method=DELETE" method="post">
-                <input type="hidden" name="id" value="{{chef.id}}">
                 <input type="submit" value="Deletar Chef" class="button button-red">
+                <input type="hidden" name="id" value="{{chef.id}}">
             </form>
             <form action="/admin/chefs?_method=PUT" method="post" enctype="multipart/form-data">
                 <input class="button" type="submit" value="Salvar Chef">

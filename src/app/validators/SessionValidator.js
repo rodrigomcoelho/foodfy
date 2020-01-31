@@ -13,28 +13,29 @@ module.exports = {
       return res.render('./session/login', 
       { 
         error: 'Usuário não encontrado', 
-        userLogin: req.body 
+        user: req.body 
       });
     
     if (!(await compare(password, user.password)))
-      return res.render('session/login',{ userLogin: req.body, error: 'Senha incorreta' }); 
+      return res.render('session/login',{ user: req.body, error: 'Senha incorreta' }); 
 
     req.user = user;
 
     return next();
   },
 
-  async forgot()
+  async forgot(req, res, next)
   {
     const { email } = req.body;
 
     try 
     {
       let user = await User.findOne({ where: { email } });
+
       user = user[0];
 
       if (!user)
-        return res.render('session/forgot-password', { userLogin: req.body, error: 'Usuário não encontrado' });
+        return res.render('session/forgot-password', { user: req.body, error: 'Usuário não encontrado' });
 
       req.user = user;
 
@@ -42,11 +43,11 @@ module.exports = {
 
     } catch (error) 
     {
-      return res.render('session/forgot-password', { userLogin: req.body, error });
+      return res.render('session/forgot-password', { user: req.body, error });
     }
   },
 
-  async reset()
+  async reset(req, res, next)
   {
     const route = 'session/password-reset';
 

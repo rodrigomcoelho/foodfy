@@ -21,11 +21,13 @@
 
         <h4>{{user.name}}</h4>
         <span>{{user.email}}</span>
-        <a href="/admin/users/{{user.id}}">Editar</a>
-        <form action="admin/users?_method=DELETE" method="post">
-          <input type="submit" value="Deletar">
-          <input type="hidden" name="id" value="{{user.id}}">
-        </form>
+        <div class="buttons">
+          <a href="/admin/users/{{user.id}}/edit">Editar</a>
+          <form action="admin/users?_method=DELETE" method="post">
+            <input type="submit" value="Deletar">
+            <input type="hidden" name="id" value="{{user.id}}">
+          </form>
+        </div>
 
       </div>
 

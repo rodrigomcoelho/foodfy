@@ -1,6 +1,8 @@
 const crypto = require('crypto');
 const { hash, compare } = require('bcryptjs');
 
+const mailer = require('../../libs/mailer');
+
 const User = require('../models/User');
 
 class SessionController
@@ -61,7 +63,7 @@ class SessionController
 
   forgotIndex(req, res)
   {
-    return res.render('session/new-password');
+    return res.render('session/forgot-password');
   }
 
   async forgot(req, res)
@@ -88,7 +90,7 @@ class SessionController
           subject: 'Recuperar Senha',
           html: `<h2>Perdeu a chave da cozinha?<h/2>
                   <p>Clique para recupera-la</p>    
-                  <p><a href="http://localhost:3000/users/password-reset?token=${token}" target="_blank">Nova Chave</a></p>`
+                  <p><a href="http://localhost:3000/session/new-password?token=${token}" target="_blank">Nova Chave</a></p>`
       });
 
       return res.render('session/login', {success: 'Email enviado, verifique sua caixa de email'});
