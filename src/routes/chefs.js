@@ -5,10 +5,14 @@ const router = Router();
 
 const ChefController = require('../app/controllers/ChefController');
 
-router.get('/create', ChefController.create);
-router.get('/:id/edit', ChefController.edit);
+const session = require('../app/middlewares/session');
+
+router.get('/create', session.isAdmin, ChefController.create);
+router.get('/:id/edit', session.isAdmin, ChefController.edit);
 router.get('/:id', ChefController.show);
 router.get('/', ChefController.index);
+
+router.use(session.isAdmin);
 
 router.post('/', multer.array('photos', 6), ChefController.post);
 router.put('/', multer.array('photos', 6), ChefController.put);

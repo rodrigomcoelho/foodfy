@@ -44,6 +44,7 @@ class SessionController
 
   loginIndex(req, res)
   {
+    req.session.destroy();
     return res.render('session/login');
   }
 
@@ -51,6 +52,7 @@ class SessionController
   {
     req.session.userId = req.user.id;
     req.session.userName = req.user.name;
+    req.session.isAdmin = req.user.is_admin;
     
     return res.redirect('/');
   }

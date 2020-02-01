@@ -3,14 +3,19 @@ const multer = require('../app/middlewares/multer');
 const router = Router();
 
 const RecipeController = require('../app/controllers/RecipeController');
+const RecipeValidator = require('../app/validators/RecipeValidator');
+
+const session = require('../app/middlewares/session');
 
 router.get('/', RecipeController.index);
-router.get('/create', RecipeController.create);
-router.get('/:id/edit', RecipeController.edit);
+router.get('/create', session.onlyUsers, RecipeController.create);
+router.get('/:id/edit', session.onlyUsers, RecipeController.edit);
 router.get('/:id', RecipeController.show);
 
+router.use(session.onlyUsers);
+
 router.post('/', multer.array('photos', 6), RecipeController.post);
-router.put('/', multer.array('photos', 6), RecipeController.put);
-router.delete('/', RecipeController.delete);
+router.put('/', multer.array('photos', 6), RecipeValidator.put, RecipeController.put);
+router.delete('/', RecipeValidator.delete, RecipeController.delete);
 
 module.exports = router;

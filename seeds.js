@@ -9,9 +9,9 @@ const LoadChef = require('./src/app/services/LoadChef');
 let usersIds = [];
 let chefIds = [];
 let recipeIds = [];
-let totalUsers = 13;
-let TotalChefs = 24;
-let TotalRecipes = 98;
+let totalUsers = 6;
+let TotalChefs = 12;
+let TotalRecipes = 44;
 
 async function createUsers()
 {
@@ -63,6 +63,7 @@ async function createRecipes()
     {
       chef_id: chefIds[Math.floor(Math.random() * TotalChefs)], 
       title: faker.name.title(),
+      user_id: usersIds[Math.floor(Math.random() * totalUsers)],
       ingredients: [
         faker.lorem.paragraph(Math.ceil(Math.random() * 2)),
         faker.lorem.paragraph(Math.ceil(Math.random() * 2)),
@@ -85,20 +86,59 @@ async function createRecipes()
 
   let files = [];
 
-  while (files.length < TotalRecipes * 3)
+  for (let index = 0; index < recipeIds.length; index++) 
   {
+
     files.push(
     {
       name: faker.image.image(),
       path: `public/images/placeholder.png`,
-      recipe_id: recipeIds[Math.floor(Math.random() * TotalRecipes)]
+      recipe_id: recipeIds[index]
     });
+
+    files.push(
+    {
+      name: faker.image.image(),
+      path: `public/images/placeholder.png`,
+      recipe_id: recipeIds[index]
+    });
+
+    files.push(
+    {
+      name: faker.image.image(),
+      path: `public/images/placeholder.png`,
+      recipe_id: recipeIds[index]
+    });
+  
   }
+
+ 
+
+  // while (files.length < TotalRecipes * 3)
+  // {
+  //   files.push(
+  //   {
+  //     name: faker.image.image(),
+  //     path: `public/images/placeholder.png`,
+  //     recipe_id: recipeIds[Math.floor(Math.random() * TotalRecipes)]
+  //   });
+  // }
 
   const filesPromise = files.map(file => LoadFile.create(file));
 
   await Promise.all(filesPromise);
 
+}
+
+async function createAdmin()
+{
+  await User.create(
+    {
+      name: 'Rodrigo Coelho',
+      email: 'rodrigo.coelho@hotmail.com.br',
+      password: await hash('123', 8),
+      is_admin: true
+    });
 }
 
 // async function createProducts()
@@ -146,7 +186,11 @@ async function init()
     await createUsers();
     await createChefs();
     await createRecipes();
+    //await createAdmin();
     // await createProducts();
 }
 
+
+
 init();
+

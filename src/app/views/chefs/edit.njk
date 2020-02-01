@@ -13,7 +13,7 @@
     <div class="form-header">
         <h3>Editando Chef</h3>
         <div class="forms">
-            <form action="/admin/chefs?_method=DELETE" method="post">
+            <form action="/admin/chefs?_method=DELETE" method="post" id="form-delete">
                 <input type="submit" value="Deletar Chef" class="button button-red">
                 <input type="hidden" name="id" value="{{chef.id}}">
             </form>
@@ -23,6 +23,16 @@
             </form>
         </div>
     </div>
+
+    <script>
+    const formDelete = document.querySelector('#form-delete');
+    formDelete.addEventListener('submit', function (event) {
+        const confirmation = confirm('Você tem certeza que deseja deletar?');
+        if (!confirmation) 
+            event.preventDefault();
+        }
+    );
+  </script>
 
     {% endcall %}
 

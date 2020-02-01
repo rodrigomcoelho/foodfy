@@ -35,7 +35,9 @@ module.exports = {
     {
       const { chef_id, title, ingredients, preparation, information } = req.body;
 
-      const id = await Recipe.create({ chef_id, title, ingredients, preparation, information });
+      const user_id = req.session.userId;
+
+      const id = await Recipe.create({ chef_id, title, ingredients, preparation, information, user_id });
 
       if (!id)
         throw new Error(`Invalid recipe id: ${id}`);

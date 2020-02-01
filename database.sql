@@ -13,6 +13,38 @@ begin
 end;
 $$ language plpgsql;
 
+
+-- create table users
+create table users
+(
+	id serial primary key,
+  name text not null,
+  email text unique not null,
+  password text not null,
+  reset_token text,
+  reset_token_expires text,
+  is_admin boolean default false,
+  created_at timestamp default(now()),
+  updated_at timestamp default(now())
+);
+
+-- auto updated_at receipts
+create trigger trigger_set_timestamp
+before update on users
+for each row
+execute procedure trigger_set_timestamp();
+
+-- session table
+create table session (
+  sid varchar not null collate "default",
+  sess json not null,
+  expire timestamp(6) not null
+)
+with (oids=false);
+alter table session 
+add constraint session_pkey 
+primary key (sid) not deferrable initially immediate;
+
 -- create table files 
 create table files 
 (
@@ -46,6 +78,7 @@ create table receipts
   ingredients text[],
   preparation text[],
   information text,
+  user_id integer references users(id),
   created_at timestamp default(now()),
   updated_at timestamp default(now())
 );
@@ -63,34 +96,3 @@ create table recipe_files
   recipe_id integer references receipts(id),
   file_id integer references files(id)
 );
-
--- create table users
-create table users
-(
-	id serial primary key,
-  name text not null,
-  email text unique not null,
-  password text not null,
-  reset_token text,
-  reset_token_expires text,
-  is_admin boolean default false,
-  created_at timestamp default(now()),
-  updated_at timestamp default(now())
-);
-
--- auto updated_at receipts
-create trigger trigger_set_timestamp
-before update on users
-for each row
-execute procedure trigger_set_timestamp();
-
--- session table
-create table session (
-  sid varchar not null collate "default",
-  sess json not null,
-  expire timestamp(6) not null
-)
-with (oids=false);
-alter table session 
-add constraint session_pkey 
-primary key (sid) not deferrable initially immediate;

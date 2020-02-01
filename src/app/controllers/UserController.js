@@ -59,18 +59,26 @@ class UserController
 
   async edit(req, res)
   {
-    console.log(req.user);
     return res.render('users/edit', { user: req.user});
   }
 
   async put(req, res)
   {
-    return res.send('Controler.put não implementado ainda');
+    const user = req.user;
+
+    await User.update(user.id, user);
+
+    return res.redirect(`/admin/users/${user.id}/edit`);
+
   }
 
   async delete(req, res)
   {
-    return res.send('Controler.delete não implementado ainda');
+    const user = req.user;
+
+    await User.delete(user.id);
+
+    return res.render('users/index', { success: 'Usuário removido com sucesso' });
   }
 }
 

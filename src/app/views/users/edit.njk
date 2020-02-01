@@ -13,8 +13,8 @@
   <div class="form-header edit">
     <h3>Editando Usuário</h3>
     <div class="forms">
-      <form action="/admin/users?_method=DELETE" method="post">
-        <input type="hidden" name="id" value="{{user.id}}">
+      <form action="/admin/users?_method=DELETE" method="post" id="form-delete">
+        <input type="hidden" name="id" value="{{ user.id }}">
         <input type="submit" value="Deletar" class="button button-red">
       </form>
       <form action="/admin/users?_method=PUT" method="post">
@@ -23,6 +23,16 @@
       </form>
     </div>
   </div>
+
+  <script>
+    const formDelete = document.querySelector('#form-delete');
+    formDelete.addEventListener('submit', function (event) {
+        const confirmation = confirm('Você tem certeza que deseja deletar?');
+        if (!confirmation) 
+            event.preventDefault();
+        }
+    );
+  </script>
 
   {% endcall %}
 
