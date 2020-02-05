@@ -9,18 +9,23 @@ class ProfileController
   
   async put(req, res)
   {
-
-    const user = req.user;
-
-    let { name, email } = req.body;
-
-    await User.update(user.id,
+    try 
     {
-      name: name ? name : user.name ,
-      email: email ? email : user.email
-    });
+      const user = req.user;
 
-    return res.redirect('/admin/profile');
+      let { name, email } = req.body;
+  
+      await User.update(user.id,
+      {
+        name: name ? name : user.name ,
+        email: email ? email : user.email
+      });
+  
+      return res.redirect('/admin/profile');
+    } catch (error) 
+    {
+      console.error(error);
+    }
   }
 }
 

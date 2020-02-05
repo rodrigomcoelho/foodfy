@@ -26,6 +26,22 @@ class RecipeValidator
     return next();
   }
 
+  async edit(req, res, next)
+  {
+    const { id } = req.params;
+    const { userId, isAdmin } = req.session;
+
+    const recipe = await Recipe.findOne({ where: { id }});
+
+    if (!recipe)
+      return res.render('./recipes/index', { recipe, error: 'Receita não encontrada' });
+
+    if (userId != recipe.user_id && !isAdmin)
+      return res.redirect('back');
+
+    return next();
+  }
+
   async delete(req, res, next)
   {
     const { id } = req.body;

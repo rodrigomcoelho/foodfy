@@ -4,8 +4,37 @@ module.exports = {
 
   async index(req, res)
   {
-    const chefs = await LoadChef.findAll();
-    return res.render('./chefs/index', { chefs });
+    try 
+    {
+
+      let { search, page, limit } = req.query;
+  
+      page = page || 1;
+      limit = limit || 12;
+  
+      let offset = limit * (page - 1);   
+  
+      const chefs = await LoadChef.findAll(undefined, 
+      { 
+        limit,
+        offset,
+        count: true,
+        orderBy: 'updated_at desc' 
+      });
+  
+      const pagination = 
+      {
+        search,
+        page,
+        total: chefs.length > 0 ? Math.ceil(chefs[0]._counttable / limit) : 0
+      };
+      
+      return res.render('./chefs/index', { chefs, pagination });
+      
+    } catch (error) 
+    {
+      console.error(error);
+    }
   },
 
   create(req, res)
@@ -35,20 +64,33 @@ module.exports = {
 
   async show(req, res)
   {
-    const { id } = req.params;
+    try 
+    {
+      const { id } = req.params;
 
-    const chef = await LoadChef.findOne({ where: { id } });
+      const chef = await LoadChef.findOne({ where: { id } });
+  
+      return res.render('./chefs/show', { chef });
+    } catch (error) 
+    {
+      console.error(error);  
+    }
 
-    return res.render('./chefs/show', { chef });
   },
 
   async edit(req, res)
   {
-    const { id } = req.params;
+    try 
+    {
+      const { id } = req.params;
 
-    const chef = await LoadChef.findOne({ where: { id } });
+      const chef = await LoadChef.findOne({ where: { id } });
 
-    return res.render('./chefs/edit', { chef });
+      return res.render('./chefs/edit', { chef });
+    } catch (error) 
+    {
+      console.error(error);  
+    }
   },
 
   async put(req, res)
@@ -80,16 +122,23 @@ module.exports = {
 
   async delete(req, res)
   {
-    const { id } = req.body;
+    try 
+    {
+      const { id } = req.body;
 
-    const chef = await LoadChef.findOne({ where: { id } });
+      const chef = await LoadChef.findOne({ where: { id } });
 
-    if (chef.recipes && chef.recipes.length > 0)
-      return res.render('./chefs/edit', { chef, error: `${chef.name} não pode ser excluído pois possui receitas ativas` });
+      if (chef.recipes && chef.recipes.length > 0)
+        return res.render('./chefs/edit', { chef, error: `${chef.name} não pode ser excluído pois possui receitas ativas` });
 
-    await LoadChef.deleteOne(id);
+      await LoadChef.deleteOne(id);
 
-    return res.redirect('/admin/chefs/');
+      return res.redirect('/admin/chefs/');
+    } catch (error) 
+    {
+      console.error(error);  
+    }
+    
   }
 
 };

@@ -13,7 +13,10 @@
     <div class="form-header">
         <h3>Receita:
             {{recipe.title}}</h3>
-        <a href="/admin/recipes/{{recipe.id}}/edit" class="button">Editar Receita</a>
+        {% if session.userId == recipe.userId or session.isAdmin %}
+            
+            <a href="/admin/recipes/{{recipe.id}}/edit" class="button">Editar Receita</a>
+        {% endif %}
     </div>
     <img class="image-detail" src="{{recipe.files[0].src}}" alt="{{recipe.title}}">
 

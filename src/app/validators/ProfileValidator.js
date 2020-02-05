@@ -8,9 +8,6 @@ class ProfileValidator
   {
     const userId = req.session.userId;
 
-    if (!userId)
-      return res.render('./session/login', { error: 'Usuário não está logado' });
-
     const user = await User.findById(userId);
 
     if (!user)
@@ -41,9 +38,9 @@ class ProfileValidator
 
     if (!(await compare(password, user.password)))
       return res.render('./profile/index', 
-      { error: 'Senha ou usuário estão incorretos'} );
+      { error: 'Senha ou usuário estão incorretos'});
 
-    if (email != user.email &&(await User.findOne({ where: { email }})).length > 0)
+    if (email != user.email &&(await User.findOne({ where: { email }})))
       return res.render('./profile/index', 
       { error: `Já existe um usuário cadastrado com o email '${email}'`} );
 

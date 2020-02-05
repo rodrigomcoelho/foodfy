@@ -1,37 +1,61 @@
 const db = require('../../config/db');
 
-function find(filters, table, orderBy = null, topRecords = 0)
+function find(filter, table, params = {})
 {
-  let sqlStatement = `select * from ${table} `;
-
-  if (filters)
+  let query = ''; //`select * from ${table}`;   
+  try 
   {
-    Object.keys(filters).map(key =>
+    const { orderBy, limit, offset, count, inLike } = params;
+
+    if (filter)
     {
-      sqlStatement += ` ${key}`;
-
-      Object.keys(filters[key]).map(field => 
+      Object.keys(filter).map(key =>
       {
-        sqlStatement += ` ${field} = '${filters[key][field]}'`;
+        query += ` ${key}`;
+
+        Object.keys(filter[key]).map(field =>
+        {
+          if (inLike)
+            query += ` lower(${field}) like '%${filter[key][field].toLowerCase()}%'`;
+          else
+            query += ` ${field} = '${filter[key][field]}'`;
+        });
+
       });
+    }
 
-    });
+    query = count ? `select *, (select count(1) from ${table} ${query}) as _countTable from ${table} ${query}` :
+                    `select * from ${table} ${query}`;  
+
+    query += orderBy ? ` order by ${orderBy}` : '';
+
+    query += limit > 0 ? ` limit ${limit}` : '';
+
+    query += ( offset && limit ) ? ` offset ${limit}` : '';
+    
+    return db.query(query);
+
+  } catch (error) 
+  {
+    console.error(error);
+    console.error(query);
   }
-
-  sqlStatement += orderBy ? ` order by ${orderBy}` : '';
-
-  sqlStatement += topRecords > 0 ? ` limit ${topRecords}` : '';
-
-  return db.query(sqlStatement);
 }
 
-const ModelBase = {
+const ModelBase =
+{
   init({ table })
   {
     if (!table)
-      throw new Error('Invalid params. A table is required');
+      throw new Error('Table is required');
 
     this.table = table;
+  },
+
+  async findOne(filter)
+  {
+    const results = await find(filter, this.table);
+    return results.rows[0];
   },
 
   async findById(id)
@@ -40,48 +64,9 @@ const ModelBase = {
     return results.rows[0];
   },
 
-  async findOne(filters)
+  async findAll(filter, params)
   {
-    const results = await find(filters, this.table);
-    return results.rows;
-  },
-
-  async findAll(filters, orderBy = null)
-  {
-    const results = await find(filters, this.table, orderBy);
-    return results.rows;
-  },
-
-  async findTop(filters, orderBy = null, limit = 0)
-  {
-    const results = await find(filters, this.table, orderBy, limit);
-    return results.rows;
-  },
-
-  async findLike(filters, limit = 0, orderBy = null)
-  {
-    let sqlStatement = `select * from ${this.table} `;
-
-    if (filters)
-    {
-      Object.keys(filters).map(key =>
-      {
-        sqlStatement += ` ${key}`;
-
-        Object.keys(filters[key]).map(field => 
-        {
-          sqlStatement += ` lower(${field}) like '%${filters[key][field].toLowerCase()}%'`;
-        });
-
-      });
-    }
-
-    sqlStatement += orderBy ? ` order by ${orderBy}` : '';
-
-    sqlStatement += limit > 0 ? ` limit ${limit}` : '';
-
-    const results = await db.query(sqlStatement);
-
+    const results = await find(filter, this.table, params);
     return results.rows;
   },
 
@@ -162,7 +147,7 @@ const ModelBase = {
       console.log(sqlStatement);
       console.erro(error);
     }
-  }
-};
+  },
+}
 
 module.exports = ModelBase;

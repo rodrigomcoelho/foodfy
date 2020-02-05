@@ -6,8 +6,7 @@ module.exports = {
   {
     const { email, password } = req.body;
 
-    let user = await User.findOne({ where: { email } });
-    user = user[0];
+    const user = await User.findOne({ where: { email } });
 
     if (!user)
       return res.render('./session/login', 
@@ -32,8 +31,6 @@ module.exports = {
     {
       let user = await User.findOne({ where: { email } });
 
-      user = user[0];
-
       if (!user)
         return res.render('session/forgot-password', { user: req.body, error: 'Usuário não encontrado' });
 
@@ -53,8 +50,7 @@ module.exports = {
 
     const { email, password, passwordRepeat , token } = req.body;
 
-    let user = await User.findOne({ where: { email } });
-    user = user[0];
+    const user = await User.findOne({ where: { email } });
 
     if(!user)
       return res.render(route, 

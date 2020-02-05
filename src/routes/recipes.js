@@ -9,7 +9,7 @@ const session = require('../app/middlewares/session');
 
 router.get('/', RecipeController.index);
 router.get('/create', session.onlyUsers, RecipeController.create);
-router.get('/:id/edit', session.onlyUsers, RecipeController.edit);
+router.get('/:id/edit', session.onlyUsers, RecipeValidator.edit, RecipeController.edit);
 router.get('/:id', RecipeController.show);
 
 router.use(session.onlyUsers);

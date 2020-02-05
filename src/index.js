@@ -8,11 +8,10 @@ const routes = require('./routes');
 const app = express();
 
 app.use(session);
-app.use((req, res, next) =>
-{
-    res.locals.session = req.session;
-    return next();
-});
+app.use((req, res, next) => {
+  res.locals.session = req.session;
+  return next();
+})
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));

@@ -1,26 +1,40 @@
 <header class="header">
-    <div class="container">
-        <a class="logo" href="/">
-            <img src="/assets/main-logo.png" alt="Foodfy">
-        </a>
-        <nav class="menu">
-            <ul>
-                <li>
-                    <a href="/">Sobre</a>
-                </li>
-                <li>
-                    <a href="/admin/recipes">Receitas</a>
-                </li>
-                <li>
-                    <a href="/admin/chefs">Chefs</a>
-                </li>
-            </ul>
-        </nav>
-        <div class="search">
-            <form action="/home/recipes" method="get">
-                <input type="text" name="search" placeholder="Busque uma receita">
-                <input type="submit" value="Buscar" class="button">
-            </form>
-        </div>
-    </div>
+  <div class="container">
+    <a class="logo" href="/">
+      <img src="/assets/main-logo.png" alt="Foodfy">
+    </a>
+    <nav class="menu">
+      <ul>
+        <li>
+          <a href="/">Sobre</a>
+        </li>
+        <li>
+          <a href="/admin/recipes">Receitas</a>
+        </li>
+        <li>
+          <a href="/admin/chefs">Chefes</a>
+        </li>
+        {% if session.userId %}
+          <li>
+            {{ session.userName }}
+          </li>
+        {% endif %}
+        {% if session.userId %}
+          <li id="logout">
+            <a href="/session/logout">Sair</a>
+          </li>
+        {% else %}
+          <li id="logout">
+            <a href="/session/login">Entrar</a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+    {# <div class="search">
+      <form action="/home/recipes" method="get">
+        <input type="text" name="search" placeholder="Busque uma receita">
+        <input type="submit" value="Buscar" class="button">
+      </form>
+    </div> #}
+  </div>
 </header>

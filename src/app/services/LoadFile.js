@@ -34,7 +34,7 @@ async function deleteFilesByRecipe({ recipe_id })
 async function findByRecipe(recipeId)
 {
   const files = [];
-  const fileRecipes = await FileRecipe.findOne({ where: { recipe_id: recipeId } });
+  const fileRecipes = await FileRecipe.findAll({ where: { recipe_id: recipeId } });
 
   const filePromise = fileRecipes.map(async file =>
   {

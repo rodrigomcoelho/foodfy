@@ -6,12 +6,11 @@ const UserValidator = require('../app/validators/UserValidator');
 
 const session = require('../app/middlewares/session');
 
-router.get('/', UserController.index);
-router.get('/create', session.isAdmin, UserController.create);
-router.get('/:id/edit', session.isAdmin, UserValidator.edit, UserController.edit);
-router.get('/:id', UserController.show);
-
 router.use(session.isAdmin);
+router.get('/', UserController.index);
+router.get('/create', UserController.create);
+router.get('/:id/edit', UserValidator.edit, UserController.edit);
+
 
 router.post('/', UserValidator.post, UserController.post);
 router.put('/', UserValidator.put, UserController.put);

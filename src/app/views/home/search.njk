@@ -10,7 +10,9 @@
 
   {% call card.render('container', 'regular')%}
 
-  <h2>Buscando por "{{search}}"</h2>
+  {% if pagination.search %}
+    <h2>Buscando por "{{pagination.search}}"</h2>
+  {% endif %} 
 
   <section class="home items">
 
@@ -23,6 +25,14 @@
     {% endfor %}
 
   </section>
+
+    <div class="pagination"
+    data-page={{pagination.page}}
+    data-total={{pagination.total}}
+    data-search={{pagination.search}}>
+  </div>
+
+  <script src="/js/pagine.js"></script>
 
   {% endcall %}
 

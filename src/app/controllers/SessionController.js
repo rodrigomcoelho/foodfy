@@ -19,9 +19,7 @@ class SessionController
       let { email, password } = req.body;
 
       password = await hash(password, 8);
-      let user = await User.findOne({ where: { email } });
-
-      user = user[0];
+      const user = await User.findOne({ where: { email } });
 
       if (!user)
         return res.render('session/new-password', { error: `Usuário ${email} não encontrado` });

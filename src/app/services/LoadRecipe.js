@@ -45,7 +45,6 @@ async function includeFiles({ id })
 
 const LoadRecipe =
 {
-  selectOptions: () => ({ limit: 0, orderby: null }),
   async findOne(filter)
   {
     let results = await Recipe.findOne(filter);
@@ -55,23 +54,14 @@ const LoadRecipe =
     return results[0];
 
   },
-  async findAll(filter, options = LoadRecipe.selectOptions())
+  async findAll(filter, params)
   {
-    let results = await Recipe.findTop(filter, options.limit, options.orderby);
+    let results = await Recipe.findAll(filter, params);
 
     results = await includeDepencies(results);
 
     return results;
   },
-
-  async findAllLike(filter, options = this.selectOptions())
-  {
-    let results = await Recipe.findLike(filter, options.limit, options.orderby);
-
-    results = await includeDepencies(results);
-
-    return results;
-  }
 };
 
 module.exports = LoadRecipe;

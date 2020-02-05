@@ -30,6 +30,8 @@ div.forms form input.button.button-red {
 .view.list .item img {
   grid-area: img;
   width: 64px;
+  height: 64px;
+  object-fit: cover;
   border-radius: 50px;
 }
 

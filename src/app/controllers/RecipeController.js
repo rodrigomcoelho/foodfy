@@ -8,9 +8,29 @@ module.exports = {
   {
     try
     {
-      const recipes = await LoadRecipe.findAll();
+      let { search, page, limit } = req.query;
 
-      return res.render('./recipes/index', { recipes });
+      page = page || 1;
+      limit = limit || 8;
+
+      let offset = limit * (page - 1);
+
+      const recipes = await LoadRecipe.findAll(undefined, 
+      { 
+        limit,
+        offset,
+        count: true,
+        orderBy: 'updated_at desc' 
+      });
+
+      const pagination = 
+      {
+        search,
+        page,
+        total: recipes.length > 0 ? Math.ceil(recipes[0]._counttable / limit) : 0
+      };
+
+      return res.render('./recipes/index', { recipes, pagination });
     } catch (error)
     {
       console.error(error);

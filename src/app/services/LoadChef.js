@@ -78,9 +78,9 @@ const LoadChef = {
     return results[0];
   },
 
-  async findAll(filter, options = LoadChef.selectOptions())
+  async findAll(filter, params)
   {
-    let results = await Chef.findTop(filter, options.limit, options.orderby);
+    let results = await Chef.findAll(filter, params);
 
     results = await includeDepencies(results);
 

@@ -7,8 +7,35 @@ class UserController
 {
   async index(req, res)
   {
-    const users = await User.findAll();
-    return res.render('./users/index', { users });
+    try 
+    {
+      let { search, page, limit } = req.query;
+  
+      page = page || 1;
+      limit = limit || 12;
+  
+      let offset = limit * (page - 1);       
+  
+      const users = await User.findAll(undefined, 
+      { 
+        limit,
+        offset,
+        count: true,
+        orderBy: 'updated_at desc' 
+      });
+  
+      const pagination = 
+      {
+        search,
+        page,
+        total: users.length > 0 ? Math.ceil(users[0]._counttable / limit) : 0
+      };
+  
+      return res.render('./users/index', { users, pagination });
+    } catch (error) 
+    {
+      console.error(error);
+    }
   }
 
   create(req, res)
@@ -20,9 +47,7 @@ class UserController
   {
     try
     {
-      const { name, email, isAdmin } = req.body;
-
-      const is_admin = isAdmin ? true : false;
+      const { name, email, is_admin } = req.user;
 
       const reset_token = randomBytes(20).toString('hex');
 
@@ -41,7 +66,7 @@ class UserController
                 <p><a href="http://localhost:3000/session/new-password?token=${reset_token}" target="_blank">Nova Senha</a></p>`
       });
 
-      return res.redirect(`/admin/show/${id}`);
+      return res.redirect(`/admin/users`);
 
     } catch (error)
     {
@@ -50,35 +75,46 @@ class UserController
 
   }
 
-  async show(req, res)
-  {
-    const user = req.user;
-
-    return res.render('users/edit', { user });
-  }
-
   async edit(req, res)
   {
-    return res.render('users/edit', { user: req.user});
+    try 
+    {
+      return res.render('users/edit', { user: req.user});
+    } catch (error) 
+    {
+      console.error(error);  
+    }
   }
 
   async put(req, res)
   {
-    const user = req.user;
+    try 
+    {
+      const user = req.user;
 
-    await User.update(user.id, user);
+      await User.update(user.id, user);
+  
+      return res.redirect(`/admin/users/${user.id}/edit`);
 
-    return res.redirect(`/admin/users/${user.id}/edit`);
-
+    } catch (error) 
+    {
+     console.error(error); 
+    }
   }
 
   async delete(req, res)
   {
-    const user = req.user;
+    try 
+    {
+      const user = req.user;
 
-    await User.delete(user.id);
-
-    return res.render('users/index', { success: 'Usuário removido com sucesso' });
+      await User.delete(user.id);
+  
+      return res.render('users/index', { success: 'Usuário removido com sucesso' });
+    } catch (error) 
+    {
+      console.error(error);
+    }
   }
 }
 

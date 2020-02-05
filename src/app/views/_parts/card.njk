@@ -1,11 +1,16 @@
-{% macro render(classes, header) %}
+{% macro render(classes, header, session) %}
+
+
+
+{# 
   {% if header == 'admin' %}
+    {% set sectionHeader = { title: 'Title 1', subtitle: 'Subtitle 1' } %}
     {% include '_parts/admin-header.njk' %}
   {% elif header == 'session' %}
     {% include '_parts/session-header.njk' %}
   {% else %}
     {% include '_parts/header.njk' %}
-  {% endif %}
+  {% endif %} #}
 
   <section class="{{classes}}">
     {{ caller() }}

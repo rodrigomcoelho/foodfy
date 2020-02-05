@@ -3,29 +3,13 @@ class UserValidator
 {
   async post(req, res, next)
   {
-    const { userId } = req.session;
-
-    if (!userId)
-      return res.render('./session/login', { error: 'Você não está logado' });
-
     const { name, email, isAdmin } = req.body
 
     const is_admin = isAdmin ? true : false;
 
     const newUser = { name, email, is_admin };
 
-    const loggedUser = await User.findById(userId);
-
-    if (!loggedUser.is_admin)
-      return res.render('./users/create', 
-      { 
-        error: 'Somente Administradores podem cadastrar novos usuários',
-        user: newUser 
-      });
-
-    let user = await User.findOne({ where: { email } });
-
-    user = user[0];
+    const user = await User.findOne({ where: { email } });
 
     if (user)
       return res.render('./users/create', 
@@ -83,9 +67,6 @@ class UserValidator
 
     const { userId } = req.session;
 
-    if (!userId)
-      return res.render('./session/login', { error: 'Usuário não está logado' });
-
     const user = await User.findById(id);
 
     if (!user)
@@ -100,18 +81,7 @@ class UserValidator
   }
 
   async put(req, res, next)
-  {
-    
-    const { userId } = req.session;
-    
-    if (!userId)
-      return res.render('./session/login', { error: 'Usuário não está logado'});
-
-    const loggedUser = await User.findById(userId);
-
-    if (!loggedUser)
-      return res.render('./session/login', { error: 'Usuário não encontrado'});
-    
+  {    
     const { id } = req.body;
 
     if (!id)
@@ -122,16 +92,11 @@ class UserValidator
     if (!user)
       return res.render('./users/index', { error: 'Usuário não encontrado'});
 
-    if (!loggedUser.is_admin)
-      return  res.render('./users/edit', { error: 'Você não é administrador', user: loggedUser });
-
     const { name, email, isAdmin } = req.body;
 
     const is_admin = isAdmin ? true : false;
 
     req.user = { id, name, email, is_admin };
-
-    console.log(req.user);
 
     return next();
   }

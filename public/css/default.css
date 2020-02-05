@@ -107,3 +107,18 @@ img {
   margin-top: 10px;
   resize: none;
 }
+
+
+div.pagination {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+  margin-top: auto;
+}
+
+div.pagination a,
+div.pagination span {
+  margin-right: 16px;
+  color: #6558C3;
+}

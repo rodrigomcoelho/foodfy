@@ -14,14 +14,17 @@
         <li>
             <a href="/admin/users">Usuários</a>
         </li>
+
         {% if session.userId %}
-            <li id="logout">
-              <a href="/session/logout">Sair</a>
-            </li>
-          
+          <li id="logout">
+            <a href="/session/logout">Sair</a>
+          </li>
+        {% else %}
+          <li id="logout">
+            <a href="/session/login">Entrar</a>
+          </li>
         {% endif %}
       
-
       </ul>
     </nav>
   </div>

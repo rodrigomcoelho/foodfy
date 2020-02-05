@@ -7,3 +7,6 @@ data.json
 public/images/*.png
 ssh-add.pub
 ssh-add
+.vscode
+.gitignore
+_ModelBase.js
