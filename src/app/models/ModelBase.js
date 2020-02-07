@@ -145,7 +145,7 @@ const ModelBase =
     } catch (error)
     {
       console.log(sqlStatement);
-      console.erro(error);
+      console.error(error);
     }
   },
 }

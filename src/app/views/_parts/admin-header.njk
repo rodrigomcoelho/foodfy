@@ -1,30 +1,19 @@
 <header class="header admin">
   <div class="container">
     <a class="logo" href="/">
-        <img src="/assets/admin-logo.png" alt="Foodfy">
+      <img src="/assets/admin-logo.png" alt="Foodfy">
     </a>
     <nav class="menu">
       <ul>
         <li>
-            <a href="/admin/recipes">Receitas</a>
+          <a href="/admin/recipes">Receitas</a>
         </li>
         <li>
-            <a href="/admin/chefs">Chefs</a>
+          <a href="/admin/chefs">Chefs</a>
         </li>
         <li>
-            <a href="/admin/users">Usuários</a>
+          <a href="/admin/users">Usuários</a>
         </li>
-
-        {% if session.userId %}
-          <li id="logout">
-            <a href="/session/logout">Sair</a>
-          </li>
-        {% else %}
-          <li id="logout">
-            <a href="/session/login">Entrar</a>
-          </li>
-        {% endif %}
-      
       </ul>
     </nav>
   </div>

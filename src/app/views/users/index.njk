@@ -23,7 +23,7 @@
         <span>{{user.email}}</span>
         <div class="buttons">
           <a href="/admin/users/{{user.id}}/edit">Editar</a>
-          <form action="/admin/users?_method=DELETE" method="post" id="form-delete">
+          <form action="/admin/users?_method=DELETE" method="post" class="form-delete">
             <input type="submit" value="Deletar">
             <input type="hidden" name="id" value="{{user.id}}">
           </form>
@@ -36,7 +36,7 @@
   </div>
 
   <script>
-    const formDeletes = document.querySelectorAll('#form-delete');
+    const formDeletes = document.querySelectorAll('.form-delete');
 
     formDeletes.forEach(formDelete =>
     {

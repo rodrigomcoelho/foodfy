@@ -1,40 +1,49 @@
 <header class="header">
   <div class="container">
     <a class="logo" href="/">
-      <img src="/assets/main-logo.png" alt="Foodfy">
+      <img src="/assets/main-logo.png" alt="Foodfy" id="logo">
     </a>
     <nav class="menu">
       <ul>
         <li>
-          <a href="/">Sobre</a>
+          <a href="/about">Sobre</a>
         </li>
         <li>
-          <a href="/admin/recipes">Receitas</a>
+          <a href="/home/recipes">Receitas</a>
         </li>
         <li>
-          <a href="/admin/chefs">Chefes</a>
+          <a href="/home/chefs">Chefes</a>
         </li>
-        {% if session.userId %}
-          <li>
-            {{ session.userName }}
-          </li>
-        {% endif %}
-        {% if session.userId %}
-          <li id="logout">
-            <a href="/session/logout">Sair</a>
-          </li>
-        {% else %}
-          <li id="logout">
-            <a href="/session/login">Entrar</a>
-          </li>
-        {% endif %}
+        <li class="dropdown-container" id="logout">
+          <a href="/admin/profile">
+            <i class="material-icons">account_circle</i> Minha Conta
+          </a>
+          {% if session.userId %}
+            <ul class="dropdown">
+              <li>
+                <a href="/admin/profile">Minha Conta</a>
+              </li>
+              <li>
+                <a href="/admin/recipes?owner={{session.userId}}">Minhas Receitas</a>
+              </li>
+              {% if session.isAdmin %}
+                <li>
+                  <a href="/admin/users">Usuários</a>
+                </li>
+              {% endif %}
+              <li>
+                <a href="/session/logout">Sair</a>
+              </li>
+            </ul>
+          {% endif %}
+        </li>
       </ul>
     </nav>
-    {# <div class="search">
+    <div class="search">
       <form action="/home/recipes" method="get">
         <input type="text" name="search" placeholder="Busque uma receita">
         <input type="submit" value="Buscar" class="button">
       </form>
-    </div> #}
+    </div>
   </div>
 </header>

@@ -10,6 +10,17 @@ async function create({ name, path, recipe_id })
   await FileRecipe.create({ file_id, recipe_id });
 };
 
+function unlikeFile(path)
+{
+  try
+  {
+    fs.unlinkSync(path);
+  } catch (error)
+  {
+    console.error(`Unable to remove this file ${file.path}`);
+  }
+}
+
 async function deleteFilesByRecipe({ recipe_id })
 {
   const files = await FileRecipe.findAll({ where: { recipe_id } });
@@ -18,14 +29,7 @@ async function deleteFilesByRecipe({ recipe_id })
     await FileRecipe.delete(file.id);
     await File.delete(file.file_id);
 
-    try
-    {
-      fs.unlinkSync(file.path);
-    } catch (error)
-    {
-      console.error(`Unable to remove this file ${file.path}`);
-    }
-
+    unlikeFile(file.path);
   });
 
   await Promise.all(filePromise);
@@ -61,20 +65,16 @@ async function deleteOneFile(id)
 
     path = file.path;
 
-    const fileRecipes = await FileRecipe.findOne({ where: { file_id: id } });
+    const fileRecipe = await FileRecipe.findOne({ where: { file_id: id } });
 
-    const promiseFiles = fileRecipes.map(async fileRecipe =>
-    {
-      await FileRecipe.delete(fileRecipe.id)
-        .then(await File.delete(file.id)
-          .then(fs.unlinkSync(file.path)));
-    });
+    await FileRecipe.delete(fileRecipe.id);
+    await File.delete(file.id);
 
-    await Promise.all(promiseFiles);
+    unlikeFile(path);
 
   } catch (error)
   {
-    console.error(`Unable to remove this file ${path}`);
+    console.error(error);
   }
 }
 

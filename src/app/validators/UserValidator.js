@@ -72,7 +72,7 @@ class UserValidator
     if (!user)
       return res.render('./users/index', { error: 'Usuário não existe' });
 
-    if (!user.id == userId)
+    if (user.id == userId)
       return res.render('./users/index', { error: 'Você não pode deletar sua própria conta'});
 
     req.user = user;

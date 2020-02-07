@@ -12,6 +12,7 @@ routes.use('/session', session);
 
 routes.get('/chefs', (req, res) => res.redirect('/home/chefs'));
 routes.get('/recipes', (req, res) => res.redirect('/home/recipes'));
+routes.get('/about', (req, res) => res.redirect('/home/about'));
 routes.get('/', (req, res) => res.redirect('/home'));
 
 module.exports = routes;

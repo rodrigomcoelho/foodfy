@@ -11,7 +11,7 @@ class ProfileValidator
     const user = await User.findById(userId);
 
     if (!user)
-      return response.render('./session/login', { error: 'Usuário não existe' });
+      return res.render('./session/login', { error: 'Usuário não existe' });
 
     req.user = user;
 

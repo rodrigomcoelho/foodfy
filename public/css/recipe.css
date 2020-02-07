@@ -82,7 +82,8 @@ div.forms form input.button.button-red {
 .view.list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 20px;
+  column-gap: 30px;
+  row-gap: 20px;
   align-items: flex-start;
 }
 
@@ -97,6 +98,7 @@ div.forms form input.button.button-red {
 .view.list .item img {
   grid-area: img;
   height: 80px;
+  width: 172px;
   max-width: 172px;
   border-radius: 8px;
   object-fit: cover;
@@ -251,80 +253,3 @@ div.forms form input.button.button-red {
   transition: all 500ms;
 }
 
-
-/* .field-item #photos-upload {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  width: 220px;
-}
-
-.field-item #photos-upload p {
-  padding: 8px 16px;
-  border-radius: 4px;
-  box-shadow: 0 2px 2px -6px #333;
-  background-color: var(--secondary-color);
-  color: #fff;
-  width: 100%;
-  text-align: center;
-  text-transform: uppercase;
-  font-size: 14px;
-}
-
-
-.field-item #photos-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-}
-
-.field-item #photos-preview {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  width: 100%;
-  margin: 8px 0;
-  
-}
-
-.field-item #photos-preview img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 4px;
-  box-shadow: 2px 2px 2px -4px #333;
-}
-
-#photos-preview .photo {
-  position: relative;
-}
-
-#photos-preview .photo i {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0.8);
-  
-  cursor: pointer;
-  align-items: flex-start;
-  justify-content: flex-end;
-  display: flex;
-
-  opacity: 0; 
-  border-radius: 4px;
-  transition: opacity 200ms;
-}
-
-#photos-preview .photo:hover i {
-  opacity: 1;
-}
-
-#photos-preview .photo i:hover {
-  color: #ff0000;
-}  */

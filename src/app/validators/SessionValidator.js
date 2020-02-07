@@ -46,9 +46,20 @@ module.exports = {
 
   async reset(req, res, next)
   {
-    const route = 'session/password-reset';
+    const route = 'session/new-password';
 
-    const { email, password, passwordRepeat , token } = req.body;
+    const { email, password, repeatedPassword , hiddenToken } = req.body;
+    let { token } = req.query;
+
+    if (!token && hiddenToken)
+      token = hiddenToken;
+
+    if (!token)
+      return res.render(route, 
+      { 
+        error: 'Token não fornecido', 
+        token 
+      });
 
     const user = await User.findOne({ where: { email } });
 
@@ -60,22 +71,25 @@ module.exports = {
         token 
       });
 
-    if (password != passwordRepeat)
+    if (password != repeatedPassword)
         return res.render(route, 
         { 
           error: 'Senhas não são iguais', 
           token 
         });
 
+
     if (token != user.reset_token)
         return res.render(route, 
         {
-          error: `Token inválido: '${token}' & user ${user.reset_token}`,
+          error: `Esse token não pertence a esse usuário`,
           token 
         });
 
     let now = new Date();
     now = now.setHours(now.getHours());
+
+    console.log(now, user.reset_token_expires);
 
     if (now > user.reset_token_expires)
         return res.render(route, { error: 'Link expirado. Por favor solicite uma nova recuperação de senha', token });

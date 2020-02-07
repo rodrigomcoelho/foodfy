@@ -8,14 +8,17 @@ module.exports = {
   {
     try
     {
-      let { search, page, limit } = req.query;
+      let { search, page, limit, owner } = req.query;
+
+      if (owner && req.session.userId)
+        owner = true;
 
       page = page || 1;
       limit = limit || 8;
 
       let offset = limit * (page - 1);
 
-      const recipes = await LoadRecipe.findAll(undefined, 
+      const recipes = await LoadRecipe.findAll(owner ? { where: { user_id: req.session.userId } } : undefined, 
       { 
         limit,
         offset,

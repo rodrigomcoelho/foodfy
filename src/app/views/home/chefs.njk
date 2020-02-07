@@ -2,6 +2,7 @@
 
 {% block head %}
   <link rel="stylesheet" href="/css/chefs.css">
+  <link rel="stylesheet" href="/css/home.css">
 {% endblock head %}
 
 {% import '_parts/card.njk' as card %}
@@ -21,7 +22,7 @@
 
         <img src="{{chef.avatar.src}}" alt="{{chef.name}}">
         <h4>{{chef.name}}</h4>
-        <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
+        <a href="/home/chefs/{{chef.id}}">Visualizar</a>
 
       </div>
 

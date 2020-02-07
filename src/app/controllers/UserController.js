@@ -53,7 +53,10 @@ class UserController
 
       const password = await hash(email, 8);
 
-      const id = await User.create({ name, email, is_admin, reset_token, password });
+      let reset_token_expires = new Date();
+      reset_token_expires = reset_token_expires.setHours(reset_token_expires.getHours() + 48);
+
+      const id = await User.create({ name, email, is_admin, reset_token, reset_token_expires, password });
 
       const user = await User.findById(id);
 

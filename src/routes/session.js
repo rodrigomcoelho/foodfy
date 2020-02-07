@@ -9,7 +9,7 @@ router.get('/new-password', SessionController.newPassword);
 router.get('/login', SessionController.loginIndex);
 router.get('/logout', SessionController.logout);
 router.get('/forgot', SessionController.forgotIndex);
-router.post('/password-reset', SessionController.resetPassword);
+router.post('/password-reset', SessionValidator.reset, SessionController.resetPassword);
 router.post('/login', SessionValidator.login,SessionController.login);
 router.post('/forgot', SessionValidator.forgot, SessionController.forgot);
 

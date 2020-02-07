@@ -15,7 +15,7 @@ class RecipeValidator
 
     const chefs = await Chef.findAll();
 
-    if (!recipe.user_id != userId)
+    if (recipe.user_id != userId && !req.isAdmin) 
       return res.render('./recipes/edit', 
       { 
         recipe,

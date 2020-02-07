@@ -16,7 +16,7 @@ module.exports = {
     }
   },
 
-  async show(req, res)
+  async showRecipe(req, res)
   {
     try 
     {
@@ -25,7 +25,7 @@ module.exports = {
       if (!recipe)
         return res.render('./home/index', { error: 'Receita não encontrada' });
 
-      return res.render('./home/show', { recipe });
+      return res.render('./home/show-recipe', { recipe });
 
     } catch (error) 
     {
@@ -33,7 +33,7 @@ module.exports = {
     }
   },
 
-  async search(req, res)
+  async searchRecipe(req, res)
   {
     try 
     {
@@ -69,7 +69,7 @@ module.exports = {
     }
   },
 
-  async showingChef(req, res)
+  async listChef(req, res)
   {
     try 
     {
@@ -101,4 +101,24 @@ module.exports = {
       console.error(error);
     }
   },
+
+  async showChef(req, res)
+  {
+    try 
+    {
+      const { id } = req.params;
+
+      const chef = await LoadChef.findOne({ where: { id } });
+  
+      return res.render('./home/show-chef', { chef });
+    } catch (error) 
+    {
+      console.error(error);  
+    }
+  },
+
+  about(req, res)
+  {
+    return res.render('home/about');
+  }
 };
