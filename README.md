@@ -1,11 +1,10 @@
-# Foodfy
-> Seu portal de administração de delícias culinárias.
+<h1 align="center">
+    <img alt="Launchbase" src="public/assets/foodfy-home.png" width="400px" />
+</h1>
 
 Foodfy é um portal onde você pode adicionar as receitas de teus pratos mais gostosos. Um portal completo onde você encontrará os melhores chefes e suas melhores receitas. Foodfy é um projeto de conclusão de curso da turma primeira turma [launch base](https://rocketseat.com.br/launchbase) da [rocketseat](https://rocketseat.com.br/) e contém módulos completos de administração de receitas, chefes e usuários.
 
-```
-Falta uma imagem aqui
-```
+[Foodfy](public/assets/foodfy-home.png)
 
 ## Começando
 Para começar a utilizar o Foodfy você precisará de alguns softwares/programas instalados em sua maquina.
@@ -129,9 +128,9 @@ execute procedure trigger_set_timestamp();
 -- create table recipe_files
 create table recipe_files
 (
-id serial primary key,
-recipe_id integer references receipts(id),
-file_id integer references files(id)
+  id serial primary key,
+  recipe_id integer references receipts(id),
+  file_id integer references files(id) on delete cascade
 );
 ```
 
@@ -212,11 +211,11 @@ async function init() {
 Agora execute o arquivo `seeds.js`
 
 
-## Meta
+## :memo: Licença
 
 **Rodrigo Coelho** – rodrigo.coelho@hotmail.com.br
 
-Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
+Esse projeto está sob a licença MIT. Veja o arquivo [LICENSE](/LICENSE) para mais detalhes.
 
 [https://github.com/rodrigomcoelho/](https://github.com/rodrigomcoelho/)
 

@@ -20,9 +20,11 @@
 
       <div class="item">
 
-        <img {% if chef.avatar.src | length > 0 %} src="{{chef.avatar.src}}" alt="{{chef.name}}" {% endif %}>
+        <a href="/home/chefs/{{chef.id}}">
+          <img {% if chef.avatar.src | length > 0 %} src="{{chef.avatar.src}}" alt="{{chef.name}}" {% endif %}>
+        </a>
         <h4>{{chef.name}}</h4>
-        <a href="/home/chefs/{{chef.id}}">Visualizar</a>
+        <span>{{chef.recipes.length}} receitas</span>
 
       </div>
 
