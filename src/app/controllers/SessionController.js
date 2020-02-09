@@ -35,7 +35,7 @@ class SessionController
 
     } catch (error) 
     {
-      console.log(error);
+      console.error(error);
       return res.render('session/password-reset', { error, token });
     }
   }

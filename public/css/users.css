@@ -2,14 +2,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
+  /* position: relative; */
 }
 
 .fields-container {
+  margin-top: 64px;
   display: grid;
   grid-template-columns: 1fr 1fr;
+  
   max-width: 100%;
-  column-gap: 60px;
+  column-gap: 40px;
   row-gap: 30px;
 }
 
@@ -42,11 +44,9 @@
   opacity: 0.8;
 }
 
-/* .form-user form > section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  
-} */
+.field-item label {
+  margin-top: 0;
+}
 
 .field-item input[type="checkbox"] {
   font-size: initial;

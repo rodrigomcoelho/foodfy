@@ -20,7 +20,7 @@
 
       <div class="item">
 
-        <img src="{{chef.avatar.src}}" alt="{{chef.name}}">
+        <img {% if chef.avatar.src | length > 0 %} src="{{chef.avatar.src}}" alt="{{chef.name}}" {% endif %}>
         <h4>{{chef.name}}</h4>
         <a href="/home/chefs/{{chef.id}}">Visualizar</a>
 
@@ -29,14 +29,6 @@
     {% endfor %}
 
   </div>
-
-  <div class="pagination"
-      data-page={{pagination.page}}
-      data-total={{pagination.total}}
-      data-search={{pagination.search}}>
-  </div>
-
-  <script src="/js/pagine.js"></script>
 
   {% endcall %}
 

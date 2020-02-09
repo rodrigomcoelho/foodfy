@@ -3,6 +3,8 @@
     <a class="logo" href="/">
       <img src="/assets/main-logo.png" alt="Foodfy" id="logo">
     </a>
+    <label for="toggle">&#9776;</label>
+    <input type="checkbox" id="toggle"/>
     <nav class="menu">
       <ul>
         <li>
@@ -25,6 +27,9 @@
               </li>
               <li>
                 <a href="/admin/recipes?owner={{session.userId}}">Minhas Receitas</a>
+              </li>
+              <li>
+                <a href="/admin/recipes">Area Administrativa</a>
               </li>
               {% if session.isAdmin %}
                 <li>

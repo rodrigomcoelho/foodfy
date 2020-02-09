@@ -1,18 +1,5 @@
 const currentPage = location.pathname;
-const menuItems = document.querySelectorAll('header.header .container nav ul a');
-let adminSpace = false;
-
-if (menuItems)
-{
-  for (item of menuItems) 
-  {
-    if (currentPage.includes(item.getAttribute('href')))
-      item.classList.add('active');
-
-    if (currentPage.includes('admin') && !adminSpace)
-      adminSpace = true;
-  }
-}
+let adminSpace = currentPage.includes('admin');
 
 if (adminSpace)
 {
@@ -37,7 +24,7 @@ if (adminSpace)
   for (const a of menuLis.querySelectorAll('li a')) 
   {
     if (currentPage.includes('admin') && a.href.includes('home'))
-      a.href = a.href.replace('home', 'admin');
+      a.setAttribute('href', a.getAttribute('href').replace('home', 'admin'));
 
     if (a.href.includes('about'))
       a.parentNode.removeChild(a);
@@ -50,6 +37,41 @@ if (adminSpace)
 
   userLi.appendChild(userA);
   menuLis.appendChild(userLi);
+
+  const pFooter = document.querySelector('footer#footer p.footer');
+  
+  if (pFooter)
+    pFooter.remove();
   
 }
 
+const menuItems = document.querySelectorAll('.container nav ul a');
+
+if (menuItems)
+{
+  for (item of menuItems) 
+  {
+    if (currentPage.includes(item.getAttribute('href')))
+      item.classList.add('active');
+  }
+}
+
+if (currentPage.includes('session'))
+{
+  const header = document.querySelector('header .container');
+  let a = '';
+
+  for (const item of header.children) 
+  {
+    if (item.classList.contains('logo'))
+    {
+      header.innerHTML = '';
+      header.appendChild(item);
+    }
+  }
+
+  const footer = document.querySelector('#footer');
+
+  if (footer)
+    footer.remove();
+}

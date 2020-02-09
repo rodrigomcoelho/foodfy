@@ -16,10 +16,10 @@ async function includeDepencies(paramIn)
   {
     recipe.author = await includeAuthor(recipe);
     recipe.files = await includeFiles(recipe);
-    recipes.push(recipe);
+    return recipe;
   });
 
-  await Promise.all(promise);
+  recipes = await Promise.all(promise);
 
   return recipes;
 }
@@ -62,6 +62,22 @@ const LoadRecipe =
 
     return results;
   },
+
+  async deleteByUser(userId)
+  {
+    const recipes = await Recipe.findAll({ where: { user_id: userId } });
+
+    if (!recipes)
+      return;
+
+    const promiseRecipeFiles = recipes.map(recipe => RecipeFile.deleteFilesByRecipe(recipe.id));
+
+    await Promise.all(promiseRecipeFiles);
+
+    const promiseRecipe = recipes.map(recipe => Recipe.delete(recipe.id));
+
+    await Promise.all(promiseRecipe);
+  }
 };
 
 module.exports = LoadRecipe;

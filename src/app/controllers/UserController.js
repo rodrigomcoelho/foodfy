@@ -1,7 +1,10 @@
 const { randomBytes } = require('crypto');
 const { hash } = require('bcryptjs');
+
 const User = require('../models/User');
+const LoadRecipe = require('../services/LoadRecipe');
 const mailer = require('../../libs/mailer');
+
 
 class UserController
 {
@@ -110,6 +113,8 @@ class UserController
     try 
     {
       const user = req.user;
+
+      await LoadRecipe.deleteByUser(user.id);
 
       await User.delete(user.id);
   

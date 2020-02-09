@@ -28,24 +28,31 @@ async function includeDepencies(paramIn)
 
 async function includeFiles({ file_id })
 {
-  let file = await File.findById(file_id);
-
-  file = { ...file, src: (`${file.path.replace('public', '')}`).split('\\').join('/') };
-
+  let file = undefined;
+  if (file_id)
+  {
+    file = await File.findById(file_id);
+    file = { ...file, src: (`${file.path.replace('public', '')}`).split('\\').join('/') };
+  }
+ 
   return file;
 }
 
 async function includeRecipes({ id })
 {
-  let recipes = await Recipe.findAll({ where: { chef_id: id } }, 'updated_at desc');
+  let recipes = await Recipe.findAll({ where: { chef_id: id } }, { orderBy: 'created_at desc'});
 
   const recipePromise = recipes.map(async recipe =>
   {
     const fileRecipes = await RecipeFile.findAll({ where: { recipe_id: recipe.id } });
 
-    recipe.image = await File.findById(fileRecipes[0].file_id);
-
-    recipe.image = { ...recipe.image, src: (`${recipe.image.path.replace('public', '')}`).split('\\').join('/') };
+    if (fileRecipes.length > 0)
+    {
+      recipe.image = await File.findById(fileRecipes[0].file_id);
+      recipe.image = { ...recipe.image, src: (`${recipe.image.path.replace('public', '')}`).split('\\').join('/') };
+    }
+    else
+      recipe.image = undefined;
 
     return { ...recipe };
   });
@@ -89,9 +96,11 @@ const LoadChef = {
 
   async createOne({ name, filename, path })
   {
-    const file_id = await File.create({ name: filename, path });
+    const chef = { name };
+    if (filename && path)
+      chef.file_id = await File.create({ name: filename, path });
 
-    const id = await Chef.create({ name, file_id });
+    const id = await Chef.create(chef);
 
     return id;
   },
@@ -109,21 +118,24 @@ const LoadChef = {
 
     } catch (error)
     {
-      console.log(error);
+      console.error(error);
     }
 
   },
 
   async updateOne(id, { name, filename, path })
   {
+    const updatedChef = { name };
     if (!id || id < 0)
       throw new Error('Chef id is invalid');
 
     const chef = await Chef.findById(id);
 
     let file_id = chef.file_id;
+    let file = undefined;
 
-    const file = await File.findById(file_id);
+    if (file_id)
+      file = await File.findById(file_id);
 
     if (path)
       file_id = await File.create({ name: filename, path });

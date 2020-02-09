@@ -14,8 +14,8 @@ router.get('/:id', RecipeController.show);
 
 router.use(session.onlyUsers);
 
-router.post('/', multer.array('photos', 6), RecipeController.post);
-router.put('/', multer.array('photos', 6), RecipeValidator.put, RecipeController.put);
+router.post('/', multer.array('photos', 5), RecipeValidator.post, RecipeController.post);
+router.put('/', multer.array('photos', 5), RecipeValidator.put, RecipeController.put);
 router.delete('/', RecipeValidator.delete, RecipeController.delete);
 
 module.exports = router;

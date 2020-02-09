@@ -1,12 +1,32 @@
 const Recipe = require('../services/LoadRecipe');
 const Chef = require('../models/Chef');
 
+async function getChefs()
+{
+  return await Chef.findAll();
+}
+
 class RecipeValidator
 {
+  async post(req, res, next)
+  {
+    const { chef_id } = req.body; 
+
+    if (!chef_id)
+    {
+      const  chefs = await getChefs();
+      return res.render('./recipes/create', { 
+        chefs, 
+        error: 'Você não pode cadastrar uma receita sem chefs' 
+      });
+    }
+    
+    return next();
+  }
   async put(req, res, next)
   {
     const { id } = req.body;
-    const { userId } = req.session;
+    const { userId, isAdmin } = req.session;
 
     const recipe = await Recipe.findOne({ where: { id }});
 
@@ -15,7 +35,7 @@ class RecipeValidator
 
     const chefs = await Chef.findAll();
 
-    if (recipe.user_id != userId && !req.isAdmin) 
+    if (recipe.user_id != userId && !isAdmin) 
       return res.render('./recipes/edit', 
       { 
         recipe,
@@ -54,7 +74,7 @@ class RecipeValidator
 
     const chefs = await Chef.findAll();
 
-    if (!recipe.user_id != userId)
+    if (recipe.user_id != userId)
       return res.render('./recipes/edit', 
       { 
         recipe,

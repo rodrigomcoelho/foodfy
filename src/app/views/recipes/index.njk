@@ -19,7 +19,7 @@
         {% for recipe in recipes %}
 
             <div class="item">
-                <img src="{{recipe.files[0].src}}" alt="{{recipe.title}}">
+                <img {% if recipe.files | length > 0 %} src="{{recipe.files[0].src}}" alt="{{recipe.title}}" {% endif %}>
                 <h4>{{recipe.title}}</h4>
                 <span>Por
                     {{recipe.author.name}}</span>
@@ -30,13 +30,13 @@
 
     </div>
 
-        <div class="pagination"
+        {# <div class="pagination"
             data-page={{pagination.page}}
             data-total={{pagination.total}}
             data-search={{pagination.search}}>
         </div>
 
-        <script src="/js/pagine.js"></script>
+        <script src="/js/pagine.js"></script> #}
 
     {% endcall %}
 

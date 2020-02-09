@@ -17,7 +17,7 @@
       <a href="/admin/recipes/{{recipe.id}}/edit" class="button">Editar Receita</a>
     {% endif %}
   </div>
-  <img class="image-detail" src="{{recipe.files[0].src}}" alt="{{recipe.title}}">
+  <img class="image-detail" {% if recipe.files | length > 0 %} src="{{recipe.files[0].src}}" alt="{{recipe.title}}" {% endif %}>
 
   <div class="image-preview">
     {% for image in recipe.files %}

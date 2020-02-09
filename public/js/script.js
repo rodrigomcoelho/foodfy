@@ -55,47 +55,46 @@ const PhotosUpload =
 
     handleFileInput(event)
     {
+      const { files: fileList } = event.target;
+      PhotosUpload.input = event.target;
 
-        const { files: fileList } = event.target;
-        this.input = event.target;
+      if (PhotosUpload.hasLimit(event))
+          return;
 
-        if (this.hasLimit(event))
-            return;
+      Array.from(fileList).forEach(file =>
+      {
+          PhotosUpload.files.push(file);
 
-        Array.from(fileList).forEach(file =>
-        {
-            this.files.push(file);
+          const fileReader = new FileReader();
 
-            const fileReader = new FileReader();
+          fileReader.onload = () =>
+          {
+              const image = new Image();
+              image.src = String(fileReader.result);
+              const div = PhotosUpload.getContainer(image);
+              PhotosUpload.preview.appendChild(div);
 
-            fileReader.onload = () =>
-            {
-                const image = new Image();
-                image.src = String(fileReader.result);
-                const div = this.getContainer(image);
-                this.preview.appendChild(div);
+              PhotosUpload.totalUploaded++;
+          };
 
-                this.totalUploaded++;
-            };
+          fileReader.readAsDataURL(file);
+      });
 
-            fileReader.readAsDataURL(file);
-        });
-
-        this.input.files = this.getAllFiles();
+      PhotosUpload.input.files = PhotosUpload.getAllFiles();
     },
 
     hasLimit(event)
     {
-        const { uploadLimit, totalUploaded, input } = this;
-        const { files: fileList } = input;
+      let { uploadLimit, totalUploaded, input } = PhotosUpload;
+      let { files: fileList } = input;
 
-        if ((fileList.length + totalUploaded) > uploadLimit())
-        {
-            alert(`A quantidade máxima de imagens permitida é ${uploadLimit()}`);
-            event.preventDefault();
-            return true;
-        }
-        return false;
+      if ((fileList.length + totalUploaded) > uploadLimit() + 1)
+      {
+          alert(`A quantidade máxima de imagens permitida é ${uploadLimit()}`);
+          event.preventDefault();
+          return true;
+      }
+      return false;
     },
 
     getContainer(image)
@@ -103,10 +102,10 @@ const PhotosUpload =
         const div = document.createElement('div');
         div.classList.add('photo');
 
-        div.onclick = this.removePhoto;
+        div.onclick = PhotosUpload.removePhoto;
 
         div.appendChild(image);
-        div.appendChild(this.getRemoveButton());
+        div.appendChild(PhotosUpload.getRemoveButton());
 
         return div;
     },
@@ -122,14 +121,14 @@ const PhotosUpload =
 
         photoDiv.remove();
 
-        PhotosUpload.totalUploaded--;
+        PhotosUpload.totalUploaded -= PhotosUpload.totalUploaded > 1 ? 1 : 0;
     },
 
     getAllFiles()
     {
         const dataTransfer = new ClipboardEvent('').clipboardData || new DataTransfer();
 
-        this.files.forEach(file => dataTransfer.items.add(file));
+        PhotosUpload.files.forEach(file => dataTransfer.items.add(file));
 
         return dataTransfer.files;
     },
@@ -158,6 +157,6 @@ const PhotosUpload =
 
         photoDiv.remove();
 
-        this.totalUploaded--;
+        PhotosUpload.totalUploaded -= PhotosUpload.totalUploaded > 1 ? 1 : 0;
     }
 };

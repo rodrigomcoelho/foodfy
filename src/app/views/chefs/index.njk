@@ -12,16 +12,18 @@
   {% call card.render('container', 'admin', session)%}
   <div class="view">
     <h3>Gerenciar Chefs</h3>
-    <a href="/admin/chefs/create" class="button">Novo Chef</a>
+    {% if session.isAdmin %}
+      <a href="/admin/chefs/create" class="button">Novo Chef</a>
+    {% endif %}
   </div>
 
   <div class="view list">
     {% for chef in chefs %}
 
       <div class="item">
-
-        <img src="{{chef.avatar.src}}" alt="{{chef.name}}">
+        <img {% if chef.avatar.src | length > 0 %} src="{{chef.avatar.src}}" alt="{{chef.name}}" {% endif %}>
         <h4>{{chef.name}}</h4>
+        <span>{{chef.recipes.length}} receitas</span>
         <a href="/admin/chefs/{{chef.id}}">Visualizar</a>
 
       </div>
@@ -29,14 +31,6 @@
     {% endfor %}
 
   </div>
-
-  <div class="pagination"
-      data-page={{pagination.page}}
-      data-total={{pagination.total}}
-      data-search={{pagination.search}}>
-  </div>
-
-  <script src="/js/pagine.js"></script>
 
   {% endcall %}
 

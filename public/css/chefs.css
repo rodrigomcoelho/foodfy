@@ -15,15 +15,15 @@ div.forms form input.button.button-red {
   display: grid;
   row-gap: 30px;
   column-gap: 10px;
-  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
 }
 
 .view.list .item {
   height: 64px;
   display: grid;
   grid-template-columns: 1fr 1.5fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: "img title" "img url";
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: "img title" "img recipes" "img url";
 }
 
 .view.list .item img {
@@ -31,13 +31,22 @@ div.forms form input.button.button-red {
   width: 64px;
   height: 64px;
   object-fit: cover;
-  border-radius: 50px;
+  border-radius: 50%;
+  background-color: #eee;
+  /* box-shadow: 0 0 2px rgba(101, 88, 195, 0.3); */
 }
 
 .view.list .item h4 {
   grid-area: title;
   /* line-height: 21px; */
   font-size: 18px;
+}
+
+.view.list .item span {
+  grid-area: recipes;
+  font-size: 12px;
+  margin-top: 5px;
+  color: #666666;
 }
 
 .view.list .item a {
@@ -52,6 +61,7 @@ div.forms form input.button.button-red {
   height: 200px;
   border-radius: 50%;
   margin: 50px auto 30px auto;
+  background-color: #eee;
 }
 
 .container > h1 {
@@ -93,6 +103,8 @@ div.forms form input.button.button-red {
   object-fit: cover;
   border-radius: 8px;
   height: 80px;
+  width: 172px;
+  background-color: #eee;
 }
 
 .recipes.item p {

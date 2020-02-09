@@ -3,9 +3,10 @@
     <div class="photos-container">
 
         <div id="photos-upload">
-            <input type="file" name="photos" multiple="multiple" id="photos-input" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
+            <input type="file" name="photos" multiple id="photos-input" accept="image/*" onchange="PhotosUpload.handleFileInput(event)">
             <p>
-                <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">add</i>
+                <i class="material-icons">add</i>
+                {# <i class="material-icons" onclick="PhotosUpload.removeOldPhoto(event)">add</i> #}
             </p>
         </div>
         <div id="photos-preview">

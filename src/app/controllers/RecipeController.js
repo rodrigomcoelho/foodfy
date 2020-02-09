@@ -166,6 +166,7 @@ module.exports = {
     try
     {
       const { id } = req.body;
+      await LoadFile.deleteFilesByRecipe(id);
       await Recipe.delete(id);
 
       return res.redirect('/admin/recipes');

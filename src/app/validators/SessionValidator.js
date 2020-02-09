@@ -89,8 +89,6 @@ module.exports = {
     let now = new Date();
     now = now.setHours(now.getHours());
 
-    console.log(now, user.reset_token_expires);
-
     if (now > user.reset_token_expires)
         return res.render(route, { error: 'Link expirado. Por favor solicite uma nova recuperação de senha', token });
 

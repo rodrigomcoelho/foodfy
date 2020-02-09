@@ -6,7 +6,6 @@ module.exports = {
   {
     try 
     {
-
       let { search, page, limit } = req.query;
   
       page = page || 1;
@@ -44,7 +43,9 @@ module.exports = {
 
   async post(req, res)
   {
-    const { filename, path } = req.files[0];
+    
+    const { filename, path } = req.avatar;
+
     const { name } = req.body;
 
     try
@@ -111,9 +112,9 @@ module.exports = {
 
       return res.redirect(`/admin/chefs/${id}`);
 
-    } catch (error)
+    } catch(error)
     {
-      console.log(error);
+      console.error(error);
       require('fs').unlinkSync(path);
       const chef = await LoadChef.findOne({ where: { id } });
       return res.render('./chefs/edit', { chef });

@@ -38,7 +38,7 @@ class ProfileValidator
 
     if (!(await compare(password, user.password)))
       return res.render('./profile/index', 
-      { error: 'Senha ou usuário estão incorretos'});
+      { user, error: 'Senha ou usuário estão incorretos'});
 
     if (email != user.email &&(await User.findOne({ where: { email }})))
       return res.render('./profile/index', 

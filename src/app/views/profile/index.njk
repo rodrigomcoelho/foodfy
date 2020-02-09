@@ -12,13 +12,13 @@
 
   <div class="form-user">
     <form action="/admin/profile?_method=PUT" method="post">
-      <div class="form-header">
+      <div class="form-header user-create">
         <h3>Bem-vindo {{ user.name }}</h3>
         <div class="buttons">
           <input type="submit" value="Salvar" class="button">
         </div>
       </div>
-      <section>
+      <section class="fields-container">
         {% include './fields.njk' %}
       </section>
     </form>

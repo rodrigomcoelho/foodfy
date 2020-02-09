@@ -26,7 +26,7 @@
 
         {% for recipe in recipes %}
             <div class="home item">
-                <a href="/home/recipes/{{recipe.id}}"><img src="{{recipe.files[0].src}}" alt="{{recipe.title}}"></a>
+                <a href="/home/recipes/{{recipe.id}}"><img {% if recipe.files | length > 0 %} src="{{recipe.files[0].src}}" alt="{{recipe.title}}" {% endif %}></a>
                 <p>{{recipe.title}}</p>
                 <span>{{recipe.author.name}}</span>
             </div>

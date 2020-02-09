@@ -1,27 +1,7 @@
 {% macro render(classes, header, session) %}
 
-
-
-{# 
-  {% if header == 'admin' %}
-    {% set sectionHeader = { title: 'Title 1', subtitle: 'Subtitle 1' } %}
-    {% include '_parts/admin-header.njk' %}
-  {% elif header == 'session' %}
-    {% include '_parts/session-header.njk' %}
-  {% else %}
-    {% include '_parts/header.njk' %}
-  {% endif %} #}
-
   <section class="{{classes}}">
     {{ caller() }}
   </section>
-
-  {% if header == 'regular' %}
-    {% include '_parts/footer.njk' %}
-  {% endif %}
-
-  {% if header == 'admin' %}
-      <script src="/js/script.js"></script>
-  {% endif %}
 
 {% endmacro %}

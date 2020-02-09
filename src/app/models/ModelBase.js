@@ -32,7 +32,6 @@ function find(filter, table, params = {})
     query += limit > 0 ? ` limit ${limit}` : '';
 
     query += ( offset && limit ) ? ` offset ${limit}` : '';
-    
     return db.query(query);
 
   } catch (error) 
@@ -100,7 +99,7 @@ const ModelBase =
 
     } catch (error) 
     {
-      console.error(error);
+      console.error(query, error);
     }
   },
 
@@ -144,7 +143,7 @@ const ModelBase =
       return await db.query(sqlStatement, [id]);
     } catch (error)
     {
-      console.log(sqlStatement);
+      console.error(sqlStatement, id);
       console.error(error);
     }
   },
