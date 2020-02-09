@@ -1,7 +1,6 @@
 {% extends '_parts/layout.njk' %}
 
 {% block head %}
-  <link rel="stylesheet" href="/css/chefs.css">
   <link rel="stylesheet" href="/css/home.css">
 {% endblock head %}
 
@@ -18,13 +17,16 @@
   <div class="view list">
     {% for chef in chefs %}
 
-      <div class="item">
+      <div class="item chef">
 
         <a href="/home/chefs/{{chef.id}}">
           <img {% if chef.avatar.src | length > 0 %} src="{{chef.avatar.src}}" alt="{{chef.name}}" {% endif %}>
         </a>
-        <h4>{{chef.name}}</h4>
-        <span>{{chef.recipes.length}} receitas</span>
+        
+        <div class="info">
+          <h4>{{chef.name}}</h4>
+          <span>{{chef.recipes.length}} receitas</span>
+        </div>
 
       </div>
 

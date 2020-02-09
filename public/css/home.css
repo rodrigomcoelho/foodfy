@@ -127,3 +127,48 @@ h2 {
   color: #444444;
   line-height: 28px;
 }
+
+
+.view.list {
+  display: grid;
+  row-gap: 30px;
+  column-gap: 10px;
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
+}
+
+.view.list .item {
+  height: 64px;
+  display: flex;
+}
+
+.view.list .item img {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 50%;
+  background-color: #eee;
+  /* box-shadow: 0 0 2px rgba(101, 88, 195, 0.3); */
+}
+
+.item .info {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.view.list .item h4 {
+  /* line-height: 21px; */
+  font-size: 18px;
+}
+
+.view.list .item span {
+  font-size: 12px;
+  margin-top: 5px;
+  color: #666666;
+}
+
+.form-header {
+  margin-top: 30px;
+}

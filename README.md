@@ -1,10 +1,10 @@
-<h1 align="center">
-    <img alt="Launchbase" src="public/assets/foodfy-home.png" width="400px" />
-</h1>
+# Foodfy
 
 Foodfy é um portal onde você pode adicionar as receitas de teus pratos mais gostosos. Um portal completo onde você encontrará os melhores chefes e suas melhores receitas. Foodfy é um projeto de conclusão de curso da turma primeira turma [launch base](https://rocketseat.com.br/launchbase) da [rocketseat](https://rocketseat.com.br/) e contém módulos completos de administração de receitas, chefes e usuários.
 
-[Foodfy](public/assets/foodfy-home.png)
+<h1 align="center">
+    <img alt="Launchbase" src="public/assets/foodfy-home.png" width="400px" />
+</h1>
 
 ## Começando
 Para começar a utilizar o Foodfy você precisará de alguns softwares/programas instalados em sua maquina.
