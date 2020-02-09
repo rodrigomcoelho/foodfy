@@ -94,5 +94,5 @@ create table recipe_files
 (
   id serial primary key,
   recipe_id integer references receipts(id),
-  file_id integer references files(id)
+  file_id integer references files(id) on delete cascade
 );

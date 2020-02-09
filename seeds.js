@@ -1,14 +1,13 @@
+require('dotenv/config');
 const { hash } = require('bcryptjs');
 const faker = require('faker');
 
 const User = require('./src/app/models/User');
 const Recipe = require('./src/app/models/Recipe');
-const LoadFile = require('./src/app/services/LoadFile');
 const LoadChef = require('./src/app/services/LoadChef');
 
 let usersIds = [];
 let chefIds = [];
-let recipeIds = [];
 let totalUsers = 6;
 let TotalChefs = 12;
 let TotalRecipes = 44;
@@ -36,12 +35,7 @@ async function createChefs() {
   let chefs = [];
 
   while (chefs.length < TotalChefs) {
-    chefs.push(
-      {
-        name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-        filename: null, //faker.image.image(),
-        path: null, //`public/images/placeholder.png`
-      });
+    chefs.push({ name: faker.name.firstName() });
   }
 
   const chefsPromise = chefs.map(chef => LoadChef.createOne(chef));
@@ -78,37 +72,6 @@ async function createRecipes() {
 
   recipeIds = await Promise.all(promiseRecipes);
 
-  // let files = [];
-
-  // for (let index = 0; index < recipeIds.length; index++) {
-
-  //   files.push(
-  //     {
-  //       name: faker.image.image(),
-  //       path: `public/images/placeholder.png`,
-  //       recipe_id: recipeIds[index]
-  //     });
-
-  //   files.push(
-  //     {
-  //       name: faker.image.image(),
-  //       path: `public/images/placeholder.png`,
-  //       recipe_id: recipeIds[index]
-  //     });
-
-  //   files.push(
-  //     {
-  //       name: faker.image.image(),
-  //       path: `public/images/placeholder.png`,
-  //       recipe_id: recipeIds[index]
-  //     });
-
-  // }
-
-  // const filesPromise = files.map(file => LoadFile.create(file));
-
-  // await Promise.all(filesPromise);
-
 }
 
 async function createAdmin() {
@@ -122,10 +85,10 @@ async function createAdmin() {
 }
 
 async function init() {
+  await createAdmin();
   await createUsers();
   await createChefs();
   await createRecipes();
-  await createAdmin();
 }
 
 init();

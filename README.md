@@ -1,10 +1,6 @@
 # Foodfy
 > Seu portal de administração de delícias culinárias.
 
-[![NPM Version][npm-image]][npm-url]
-[![Build Status][travis-image]][travis-url]
-[![Downloads Stats][npm-downloads]][npm-url]
-
 Foodfy é um portal onde você pode adicionar as receitas de teus pratos mais gostosos. Um portal completo onde você encontrará os melhores chefes e suas melhores receitas. Foodfy é um projeto de conclusão de curso da turma primeira turma [launch base](https://rocketseat.com.br/launchbase) da [rocketseat](https://rocketseat.com.br/) e contém módulos completos de administração de receitas, chefes e usuários.
 
 ```
@@ -22,6 +18,7 @@ Lista de softwares necessários para executar aplicação.
 ```
 Node.js
 Postgres
+git
 ```
 
 Esses programas são excecionais para o funcionamento do programa.
@@ -164,7 +161,7 @@ Você pode utilizar o arquivo `.env.example` como exemplo para se basear na cria
 
 ## Configuração para Desenvolvimento
 
-Agora com o diretório da aplicação já presente na maquina e o banco devidamente instalado e configurado, será necessário executar executar os comandos abaixo no terminal.
+Agora com o diretório da aplicação já presente na maquina e o banco devidamente instalado e configurado, será necessário executar executar os comandos abaixo no terminal dentro do diretório foodfy.
 
 ```sh
 npm install
@@ -202,15 +199,13 @@ async function init() {
   await createAdmin();
 }
 ```
-
-	Ficará assim:
-
+Ficará assim:
 ```js
 async function init() {
+  await createAdmin();
 // await createUsers();
 // await createChefs();
 // await createRecipes();
-  await createAdmin();
 }
 ```
 

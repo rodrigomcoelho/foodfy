@@ -120,11 +120,16 @@ const ModelBase =
             update.push(`${key} = array[${arr}]`);
           }
           else
-            update.push(`${key} = '${fields[key]}'`);
+          {
+            if (fields[key] == null) 
+              update.push(`${key} = ${fields[key]}`);
+            else
+              update.push(`${key} = '${fields[key]}'`);
+          }
         }
       });
 
-      query = `update ${this.table} set ${update.join(',')} where id = ${id}`;
+      query = `update ${this.table} set ${update.join(', ')} where id = ${id}`;
 
       return await db.query(query);
 

@@ -6,6 +6,7 @@
   justify-content: space-between;
 }
 
+
 header.header.admin {
   background-color: #222;
   margin-bottom: 50px;
@@ -45,6 +46,10 @@ header.header.admin a i {
   font-size: 16px;
 }
 
+.admin .container .menu {
+  flex: 1;
+}
+
 .menu ul li a.active {
   font-weight: bold;
 }
@@ -62,7 +67,7 @@ header.header.admin a i {
   right: 80px;
 }
 
-@media (max-width: 1280px) {
+@media (max-width: 1340px) {
   .menu ul li#logout {
     position: relative;
     right: 0;
@@ -180,7 +185,7 @@ header.header label {
 
 
 @media only screen and (max-width: 1000px) {
-  label {
+  header.header label {
     display: block;
     cursor: pointer;
   }

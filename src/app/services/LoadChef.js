@@ -16,7 +16,7 @@ async function includeDepencies(paramIn)
 
   const promise = results.map(async chef =>
   {
-    chef.avatar = await includeFiles(chef);
+    chef.avatar = await includeFiles(chef.file_id);
     chef.recipes = await includeRecipes(chef);
     return { ...chef };
   });
@@ -26,7 +26,7 @@ async function includeDepencies(paramIn)
   return chefs;
 }
 
-async function includeFiles({ file_id })
+async function includeFiles(file_id)
 {
   let file = undefined;
   if (file_id)
@@ -110,11 +110,16 @@ const LoadChef = {
     try
     {
       const chef = await Chef.findById(id);
-      const file = await File.findById(chef.file_id);
+      const file = await includeFiles(chef.file_id);
 
-      await Chef.delete(id)
-        .then(await File.delete(file.id)
-          .then(deleteFile(file.path)));
+      if (file)
+      {
+        await File.delete(file.id);
+        deleteFile(file.path)
+
+      }
+
+      await Chef.delete(chef.id);
 
     } catch (error)
     {
