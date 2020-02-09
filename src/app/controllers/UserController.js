@@ -69,7 +69,7 @@ class UserController
         subject: 'Usuário criado com sucesso',
         html: `<h2>Bem vindo ao foodfy ${user.name}<h/2>
                 <p>Clique no link abaixo onde você será direcionado ao pagina de nova senha.</p>    
-                <p><a href="http://localhost:3000/session/new-password?token=${reset_token}" target="_blank">Nova Senha</a></p>`
+                <p><a href="${process.env.APP_URL}/session/new-password?token=${reset_token}" target="_blank">Nova Senha</a></p>`
       });
 
       return res.redirect(`/admin/users`);

@@ -90,7 +90,7 @@ class SessionController
           subject: 'Recuperar Senha',
           html: `<h2>Perdeu a chave da cozinha?<h/2>
                   <p>Clique para recupera-la</p>    
-                  <p><a href="http://localhost:3000/session/new-password?token=${token}" target="_blank">Nova Chave</a></p>`
+                  <p><a href="${process.env.APP_URL}/session/new-password?token=${token}" target="_blank">Nova Chave</a></p>`
       });
 
       return res.render('session/login', {success: 'Email enviado, verifique sua caixa de email'});

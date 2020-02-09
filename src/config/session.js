@@ -5,8 +5,8 @@ const db = require('./db');
 module.exports = session(
 {
     store: new pgSession({ pool: db }),
-    secret: '6aad5d70174f92779f6138005f276418',
+    secret: process.env.APP_SECRET,
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 }
+    cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 }
 });

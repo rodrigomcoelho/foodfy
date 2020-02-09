@@ -71,20 +71,26 @@ module.exports = {
         token 
       });
 
-    if (password != repeatedPassword)
-        return res.render(route, 
-        { 
-          error: 'Senhas não são iguais', 
-          token 
-        });
+    if (len(password) < 6)
+      return res.render(route, 
+      { 
+        error: 'A senha conter no minimo 6 digitos', 
+        token 
+      });
 
+    if (password != repeatedPassword)
+      return res.render(route, 
+      { 
+        error: 'Senhas não são iguais', 
+        token 
+      });
 
     if (token != user.reset_token)
-        return res.render(route, 
-        {
-          error: `Esse token não pertence a esse usuário`,
-          token 
-        });
+      return res.render(route, 
+      {
+        error: `Esse token não pertence a esse usuário`,
+        token 
+      });
 
     let now = new Date();
     now = now.setHours(now.getHours());

@@ -15,7 +15,7 @@ let TotalRecipes = 44;
 
 async function createUsers() {
   const users = [];
-  const password = await hash('123', 8);
+  const password = await hash('123456', 8);
 
   while (users.length < totalUsers) {
     users.push(
@@ -39,8 +39,8 @@ async function createChefs() {
     chefs.push(
       {
         name: `${faker.name.firstName()} ${faker.name.lastName()}`,
-        filename: faker.image.image(),
-        path: `public/images/placeholder.png`
+        filename: null, //faker.image.image(),
+        path: null, //`public/images/placeholder.png`
       });
   }
 
@@ -78,36 +78,36 @@ async function createRecipes() {
 
   recipeIds = await Promise.all(promiseRecipes);
 
-  let files = [];
+  // let files = [];
 
-  for (let index = 0; index < recipeIds.length; index++) {
+  // for (let index = 0; index < recipeIds.length; index++) {
 
-    files.push(
-      {
-        name: faker.image.image(),
-        path: `public/images/placeholder.png`,
-        recipe_id: recipeIds[index]
-      });
+  //   files.push(
+  //     {
+  //       name: faker.image.image(),
+  //       path: `public/images/placeholder.png`,
+  //       recipe_id: recipeIds[index]
+  //     });
 
-    files.push(
-      {
-        name: faker.image.image(),
-        path: `public/images/placeholder.png`,
-        recipe_id: recipeIds[index]
-      });
+  //   files.push(
+  //     {
+  //       name: faker.image.image(),
+  //       path: `public/images/placeholder.png`,
+  //       recipe_id: recipeIds[index]
+  //     });
 
-    files.push(
-      {
-        name: faker.image.image(),
-        path: `public/images/placeholder.png`,
-        recipe_id: recipeIds[index]
-      });
+  //   files.push(
+  //     {
+  //       name: faker.image.image(),
+  //       path: `public/images/placeholder.png`,
+  //       recipe_id: recipeIds[index]
+  //     });
 
-  }
+  // }
 
-  const filesPromise = files.map(file => LoadFile.create(file));
+  // const filesPromise = files.map(file => LoadFile.create(file));
 
-  await Promise.all(filesPromise);
+  // await Promise.all(filesPromise);
 
 }
 
@@ -115,16 +115,16 @@ async function createAdmin() {
   await User.create(
     {
       name: 'Administrador',
-      email: 'admin@foodfy.com',
-      password: await hash('123', 8),
+      email: 'admin@foodfy.com.br',
+      password: await hash('123456', 8),
       is_admin: true
     });
 }
 
 async function init() {
-  // await createUsers();
-  // await createChefs();
-  // await createRecipes();
+  await createUsers();
+  await createChefs();
+  await createRecipes();
   await createAdmin();
 }
 
