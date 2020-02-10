@@ -5,6 +5,11 @@ class ChefValidator
     let avatarFilename = null;
     let avatarPath = null;
 
+    const { name } = req.body;
+
+    if (!name)
+      return res.render('./chefs/create', { error: 'O nome é obrigatório' });
+
     if (req.files.length > 0)
     {
       const { filename, path } = req.files[0];

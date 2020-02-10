@@ -58,6 +58,20 @@ module.exports = {
     {
       const { chef_id, title, ingredients, preparation, information } = req.body;
 
+      if (ingredients)
+        ingredients.forEach(element =>
+        {
+          if(!element)
+            ingredients.splice(ingredients.indexOf(element), 1);
+        });
+
+      if (preparation)
+        preparation.forEach(element =>
+        {
+          if(!element)
+            preparation.splice(preparation.indexOf(element), 1);
+        });
+
       const user_id = req.session.userId;
 
       const id = await Recipe.create({ chef_id, title, ingredients, preparation, information, user_id });
@@ -128,6 +142,20 @@ module.exports = {
     try
     {
       const { id, chef_id, title, ingredients, preparation, information } = req.body;
+
+      if (ingredients)
+        ingredients.forEach(element =>
+        {
+          if(!element)
+            ingredients.splice(ingredients.indexOf(element), 1);
+        });
+
+      if (preparation)
+        preparation.forEach(element =>
+        {
+          if(!element)
+            preparation.splice(preparation.indexOf(element), 1);
+        });
 
       await Recipe.update(id, { chef_id, title, ingredients, preparation, information });
 

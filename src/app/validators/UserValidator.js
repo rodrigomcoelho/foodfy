@@ -7,6 +7,13 @@ class UserValidator
 
     const is_admin = isAdmin ? true : false;
 
+    if (!name || !email)
+      return res.render('./users/create', 
+      { 
+        user: { name, email, is_admin }, 
+        error: 'O nome e o email são obrigatórios' 
+      }); 
+
     const newUser = { name, email, is_admin };
 
     const user = await User.findOne({ where: { email } });
@@ -52,6 +59,13 @@ class UserValidator
       return res.render('./users/index', { error: 'Usuário não encontrado'});
 
     const { name, email, is_admin } = user;
+
+    if (!name || !email)
+      return res.render('./users/create', 
+      { 
+        user: { name, email, is_admin }, 
+        error: 'O nome e o email são obrigatórios' 
+      }); 
 
     req.user = { id, name, email, is_admin };
 
